@@ -1,0 +1,17 @@
+{
+  "name": "zenkai",
+  "version": "1.0.0",
+  "description": "Zenkai - A modern task management application",
+  "scripts": {
+    "client": "cd WebApp && npm run dev",
+    "server": "cd ServerApp && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install:all": "npm install && cd WebApp && npm install && cd ../ServerApp && npm install",
+    "docker:up": "cd WebApp && docker-compose up -d",
+    "docker:down": "cd WebApp && docker-compose down",
+    "start": "npm run docker:up && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+} 
