@@ -21,7 +21,8 @@ interface UpdateTaskBody {
 // Initialize default user
 const initializeDefaultUser = async () => {
   try {
-    const defaultUser = await prisma.user.upsert({
+    /*
+    const defaultUser = await prisma.users.upsert({
       where: { id: 'default-user' },
       update: {},
       create: {
@@ -32,6 +33,7 @@ const initializeDefaultUser = async () => {
       }
     });
     console.log('Default user initialized:', defaultUser.id);
+    */
   } catch (error) {
     console.error('Error initializing default user:', error);
   }
@@ -43,9 +45,9 @@ initializeDefaultUser();
 // Get all tasks
 app.get('/api/tasks', async (req: Request, res: Response) => {
   try {
-    const tasks = await prisma.task.findMany({
+    const tasks = await prisma.tasks.findMany({
       orderBy: {
-        createdAt: 'desc'
+        created_at: 'desc'
       },
       include: {
         user: true
@@ -62,7 +64,7 @@ app.get('/api/tasks', async (req: Request, res: Response) => {
 app.post('/api/tasks', async (req: Request<{}, {}, CreateTaskBody>, res: Response) => {
   try {
     const { title, priority } = req.body;
-    const task = await prisma.task.create({
+    const task = await prisma.tasks.create({
       data: {
         title,
         completed: false,
@@ -88,7 +90,7 @@ app.patch('/api/tasks/:id', async (req: Request<{ id: string }, {}, UpdateTaskBo
   try {
     const { id } = req.params;
     const { completed } = req.body;
-    const task = await prisma.task.update({
+    const task = await prisma.tasks.update({
       where: { id: id },
       data: { completed },
       include: {
@@ -106,7 +108,7 @@ app.patch('/api/tasks/:id', async (req: Request<{ id: string }, {}, UpdateTaskBo
 app.delete('/api/tasks/:id', async (req: Request<{ id: string }>, res: Response) => {
   try {
     const { id } = req.params;
-    await prisma.task.delete({
+    await prisma.tasks.delete({
       where: { id: id }
     });
     res.status(204).send();

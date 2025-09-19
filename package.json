@@ -7,8 +7,8 @@
     "server": "cd ServerApp && npm run dev",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "install:all": "npm install && cd WebApp && npm install && cd ../ServerApp && npm install",
-    "docker:up": "cd WebApp && docker-compose up -d",
-    "docker:down": "cd WebApp && docker-compose down",
+    "docker:up": "cd ServerApp && docker compose up -d",
+    "docker:down": "cd ServerApp && docker compose down",
     "start": "npm run docker:up && npm run dev"
   },
   "devDependencies": {
